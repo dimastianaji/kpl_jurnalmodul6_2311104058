@@ -4,24 +4,31 @@ class Program
 {
     static void Main()
     {
-        Console.Write("Masukkan username: ");
-        string username = Console.ReadLine();
-        SayaTubeUser user = new SayaTubeUser(username);
-
-        List<string> filmTitles = new List<string>();
-        for (int i = 0; i < 10; i++)
+        try
         {
-            Console.Write($"Masukkan judul film ke-{i + 1}: ");
-            string filmTitle = Console.ReadLine();
-            filmTitles.Add($"Review Film {filmTitle} oleh {username}");
-        }
+            Console.Write("Masukkan username: ");
+            string username = Console.ReadLine();
+            SayaTubeUser user = new SayaTubeUser(username);
 
-        foreach (string title in filmTitles)
+            List<string> filmTitles = new List<string>();
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write($"Masukkan judul film ke-{i + 1}: ");
+                string filmTitle = Console.ReadLine();
+                filmTitles.Add($"Review Film {filmTitle} oleh {username}");
+            }
+
+            foreach (string title in filmTitles)
+            {
+                SayaTubeVideo video = new SayaTubeVideo(title);
+                user.AddVideo(video);
+            }
+
+            user.PrintAllVideoPlaycount();
+        }
+        catch (Exception ex)
         {
-            SayaTubeVideo video = new SayaTubeVideo(title);
-            user.AddVideo(video);
+            Console.WriteLine($"Terjadi kesalahan: {ex.Message}");
         }
-
-        user.PrintAllVideoPlaycount();
     }
 }
